@@ -55,7 +55,7 @@ const bannerSlides = [
 const stats = [
   { number: "3", label: "Generations", icon: Star, color: "from-amber-400 to-orange-500" },
   { number: "100+", label: "Students Taught", icon: Users, color: "from-teal-400 to-emerald-500" },
-  { number: "4867+", label: "Items Donated", icon: Heart, color: "from-pink-400 to-rose-500" },
+  { number: "1267+", label: "Items Donated", icon: Heart, color: "from-pink-400 to-rose-500" },
   { number: "₹0", label: "Cost Barrier", icon: Zap, color: "from-violet-400 to-purple-500" },
 ];
 
