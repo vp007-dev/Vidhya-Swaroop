@@ -147,7 +147,7 @@ export default function Support() {
             </p>
           </motion.div>
         </div>
-        <MarqueeSupporters supporters={constantSupporters} speed={35} />
+        <MarqueeSupporters supporters={constantSupporters} speed={10} />
       </section>
 
 

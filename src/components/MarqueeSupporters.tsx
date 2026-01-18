@@ -10,7 +10,7 @@ interface MarqueeSupportersProps {
   speed?: number;
 }
 
-export function MarqueeSupporters({ supporters, speed = 30 }: MarqueeSupportersProps) {
+export function MarqueeSupporters({ supporters, speed = 60 }: MarqueeSupportersProps) {
   // Duplicate the array for seamless loop
   const duplicatedSupporters = [...supporters, ...supporters, ...supporters];
 
@@ -23,7 +23,7 @@ export function MarqueeSupporters({ supporters, speed = 30 }: MarqueeSupportersP
       <motion.div
         className="flex gap-8 sm:gap-12"
         animate={{
-          x: ["0%", "-33.33%"],
+          x: ["-33.33%", "0%"],
         }}
         transition={{
           x: {
