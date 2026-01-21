@@ -226,7 +226,7 @@ const awards = [
     organization: "State Education Board",
     year: "2024",
     description:
-      "Honored for her work in education sector by Honourable Mr. S.P Singh Baghel (MP) And Mrs. Nirmala Dixit (former President of Mahila Ayog)",
+      "Honoured her as Nari Shakti Award for her work in health sector. ",
     gradient: "from-slate-300 via-gray-300 to-zinc-400",
     image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/panckuyia.jpeg", // Add award image URL here
   },
@@ -244,7 +244,7 @@ const awards = [
     title: "Vanvasi Prakalp Sansthan",
     organization: "Vanvasi Prakalp Sansthan",
     year: "2023",
-    description: "Honoured her as Nati Shakti Award for her work in health sector",
+    description: "Honored for her work in education sector by Honourable Mr. S.P Singh Baghel (MP) And Mrs. Nirmala Dixit (former President of Mahila Ayog)",
     gradient: "from-teal-400 via-cyan-400 to-blue-400",
     image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/vanvasi.jpeg", // Add award image URL here
   },
@@ -255,7 +255,7 @@ const awards = [
     year: "2025",
     description: "SBI Donates 31000/- for our students",
     gradient: "from-teal-400 via-cyan-400 to-blue-400",
-    image: "", // Add award image URL here
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/sbidon.jpeg", // Add award image URL here
   },
   {
     icon: Award,
@@ -280,7 +280,7 @@ const certificates = [
     icon: Shield,
   },
   {
-    title: "ATG Registered",
+    title: "80G Registered",
     number: "", // Add certificate number here
     icon: Shield,
   },

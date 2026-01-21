@@ -1,23 +1,47 @@
-import { useState } from "react"; // Added useState
-import { motion, AnimatePresence } from "framer-motion"; // Added AnimatePresence
-import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X } from "lucide-react"; // Added X icon
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const inspirations = [
-  { name: "Late Shri Vidhya Sagar Gupta", description: "A visionary educator whose belief that 'every child deserves a chance to learn' continues to guide our mission." },
-  { name: "Late Smt. Roopa Devi Gupta", description: "A pillar of strength who believed that education combined with values creates stronger communities." },
+  { name: "Late Shri Vidhya Sagar Agarwal", description: "A visionary educator whose belief that 'every child deserves a chance to learn' continues to guide our mission." },
+  { name: "Late Smt. Roopa Devi Agarwal", description: "A pillar of strength who believed that education combined with values creates stronger communities." },
 ];
 
 const leadership = {
   presidents: [
-    { name: "Mr. Vikas Agarwal", role: "President", image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/vikas.jpeg", description: "Mr. Vikas Agrawal provides strategic leadership and financial oversight to the foundation. With expertise in corporate governance and finance, he ensures transparency, compliance, and sustainable growth, supporting the foundation’s long-term mission and social impact." },
-    { name: "Mrs. Monika Agarwal", role: "Secretary", image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/MonikaMam.jpeg", description: "Ms. Monika Agarwal is a dedicated educationist and social worker focused on foundational education for children from Nursery to Grade 5 and skill development for adults. She works toward holistic community development by promoting education, self-reliance, and confidence across all age groups." },
+    { 
+      name: "Mr. Vikas Agarwal", 
+      role: "President", 
+      education: "MBA, M.Com", // Added Education
+      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/vikas.jpeg", 
+      description: "Mr. Vikas Agarwal provides strategic leadership and financial oversight to the foundation. With expertise in corporate governance and finance, he ensures transparency, compliance, and sustainable growth, supporting the foundation’s long-term mission and social impact." 
+    },
+    { 
+      name: "Mrs. Monika Agarwal", 
+      role: "Secretary", 
+      education: "MBA, MCOM , MA(ECONOMICS), B. ED, PHD pursiung", // Added Education
+      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/MonikaMam.jpeg", 
+      description: "Ms. Monika Agarwal is a dedicated educationist and social worker focused on foundational education for children from Nursery to Grade 5 and skill development for adults. She works toward holistic community development by promoting education, self-reliance, and confidence across all age groups." 
+    },
   ],
   trustees: [
-    { name: "Shivani Agarwal", role: "Trustee", image: "", description: "Ms. Shivani Agrawal is a committed educationist and trustee who brings strong academic knowledge and value-based learning to the foundation. With expertise in Sanskrit and education, she supports moral education, curriculum guidance, and holistic student development." },
-    { name: "Sakshi Agarwal", role: "Trustee", image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/Sakshi.jpeg", description: "Ms. Sakshi Agarwal contributes her expertise in human resources to support organizational development and people management within the foundation. She plays an active role in strengthening team coordination, volunteer engagement, and capacity building to ensure smooth and effective operations." },
+    { 
+      name: "Shivani Agarwal", 
+      role: "Trustee", 
+      education: "MA(Sanskrit), B. Ed", // Added Education
+      image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/Shivani.jpeg", 
+      description: "Ms. Shivani Agrawal is a committed educationist and trustee who brings strong academic knowledge and value-based learning to the foundation. With expertise in Sanskrit and education, she supports moral education, curriculum guidance, and holistic student development." 
+    },
+    { 
+      name: "Sakshi Agarwal", 
+      role: "Trustee", 
+      education: "MBA (HR)", // Added Education
+      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/Sakshi.jpeg", 
+      description: "Ms. Sakshi Agarwal contributes her expertise in human resources to support organizational development and people management within the foundation. She plays an active role in strengthening team coordination, volunteer engagement, and capacity building to ensure smooth and effective operations." 
+    },
   ],
 };
 
@@ -37,7 +61,6 @@ const purposes = [
 ];
 
 export default function About() {
-  // State to manage the open dialog
   const [selectedMember, setSelectedMember] = useState(null);
 
   return (
@@ -111,7 +134,7 @@ export default function About() {
             {[...leadership.presidents, ...leadership.trustees].map((person, i) => (
               <motion.div 
                 key={person.name} 
-                layoutId={`card-${person.name}`} // Shared layout ID for smooth transition
+                layoutId={`card-${person.name}`} 
                 onClick={() => setSelectedMember(person)}
                 initial={{ opacity: 0, y: 20 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
@@ -140,6 +163,16 @@ export default function About() {
                 
                 {/* Name */}
                 <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">{person.name}</h3>
+
+                {/* --- NEW ADDITION: Education Badge --- */}
+                {person.education && (
+                  <div className="flex justify-center mb-3">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-secondary/50 text-secondary-foreground text-[10px] sm:text-xs font-medium border border-secondary">
+                      <GraduationCap className="h-3 w-3 opacity-70" />
+                      {person.education}
+                    </span>
+                  </div>
+                )}
                 
                 {/* Description (Truncated) */}
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3 group-hover:text-foreground/80 transition-colors">
@@ -170,7 +203,6 @@ export default function About() {
                 transition={{ delay: i * 0.1 }} 
                 className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-card border border-border hover:border-primary/30 transition-all card-hover text-center"
               >
-                {/* Circular Logo Placeholder */}
                 <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-br from-accent/20 to-primary/20 border-4 border-accent/30 flex items-center justify-center mb-4 overflow-hidden shadow-lg">
                   {supporter.image ? (
                     <img src={supporter.image} alt={supporter.name} className="w-full h-full object-cover" />
@@ -178,11 +210,7 @@ export default function About() {
                     <Handshake className="h-7 w-7 sm:h-9 sm:w-9 text-accent" />
                   )}
                 </div>
-                
-                {/* Name */}
                 <h3 className="text-sm sm:text-base font-bold text-foreground mb-2">{supporter.name}</h3>
-                
-                {/* Description */}
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">{supporter.description}</p>
               </motion.div>
             ))}
@@ -278,8 +306,18 @@ export default function About() {
                       {selectedMember.role}
                     </div>
                     
-                    <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-4">{selectedMember.name}</h3>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">{selectedMember.name}</h3>
                     
+                    {/* --- NEW ADDITION: Education Badge in Modal --- */}
+                    {selectedMember.education && (
+                      <div className="mb-4 flex sm:justify-start justify-center">
+                        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-secondary/50 text-secondary-foreground text-xs font-medium border border-secondary">
+                          <GraduationCap className="h-4 w-4 opacity-70" />
+                          {selectedMember.education}
+                        </span>
+                      </div>
+                    )}
+
                     {/* Full Description (No Line Clamp) */}
                     <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
                       <p className="text-base text-muted-foreground leading-relaxed">
