@@ -15,6 +15,8 @@ import {
   Trophy,
   Medal,
   Crown,
+  BadgeCheck,
+  Shield,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
@@ -216,14 +218,17 @@ const awards = [
     year: "2023",
     description: "Honoured for best social work",
     gradient: "from-amber-400 via-yellow-400 to-orange-400",
+    image: "", // Add award image URL here
   },
   {
     icon: Medal,
     title: "Bhijariya Mela panckuyia",
     organization: "State Education Board",
     year: "2024",
-    description: "Honored for her work in education sector by Honourable Mr. S.P Singh Baghel (MP) And Mrs. Nirmala Dixit (former President of Mahila Ayog)",
+    description:
+      "Honored for her work in education sector by Honourable Mr. S.P Singh Baghel (MP) And Mrs. Nirmala Dixit (former President of Mahila Ayog)",
     gradient: "from-slate-300 via-gray-300 to-zinc-400",
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/panckuyia.jpeg", // Add award image URL here
   },
   {
     icon: Crown,
@@ -232,6 +237,7 @@ const awards = [
     year: "2025",
     description: "Honoured by the title of social activist on women's day",
     gradient: "from-rose-400 via-pink-400 to-fuchsia-400",
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/allen.jpeg", // Add award image URL here
   },
   {
     icon: Award,
@@ -240,6 +246,7 @@ const awards = [
     year: "2023",
     description: "Honoured her as Nati Shakti Award for her work in health sector",
     gradient: "from-teal-400 via-cyan-400 to-blue-400",
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/vanvasi.jpeg", // Add award image URL here
   },
   {
     icon: Award,
@@ -248,6 +255,7 @@ const awards = [
     year: "2025",
     description: "SBI Donates 31000/- for our students",
     gradient: "from-teal-400 via-cyan-400 to-blue-400",
+    image: "", // Add award image URL here
   },
   {
     icon: Award,
@@ -256,6 +264,25 @@ const awards = [
     year: "2025",
     description: "SBI Selects our students for POCSO committee member.",
     gradient: "from-teal-400 via-cyan-400 to-blue-400",
+    image: "", // Add award image URL here
+  },
+];
+
+const certificates = [
+  {
+    title: "Darpan Registered",
+    number: "UP/2025/0643489", // Add certificate number here
+    icon: Shield,
+  },
+  {
+    title: "PAN",
+    number: "ATMPA1618B", // Add certificate number here
+    icon: Shield,
+  },
+  {
+    title: "ATG Registered",
+    number: "", // Add certificate number here
+    icon: Shield,
   },
 ];
 
@@ -305,6 +332,25 @@ export default function Index() {
               <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-foreground leading-[1.1] mb-4 sm:mb-6">
                 Education at the <span className="text-gradient">Cost of Chips Packet</span>
               </h1>
+
+              {/* Certified By Section */}
+              <div className="flex flex-wrap items-center gap-4 mb-6">
+                <span className="text-sm font-medium text-muted-foreground">Certified by:</span>
+                {certificates.map((cert, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20"
+                  >
+                    <BadgeCheck className="h-5 w-5 text-blue-500" />
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold text-foreground">{cert.title}</span>
+                      {cert.number && (
+                        <span className="text-xs text-muted-foreground">{cert.number}</span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
 
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-xl leading-relaxed">
                 We're transforming lives by making quality education accessible to everyone. Join our mission to empower
@@ -655,8 +701,24 @@ export default function Index() {
                   <h3 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-amber-200 transition-colors line-clamp-2">
                     {award.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-white/50 font-medium mb-3">{award.organization}</p>
-                  <p className="text-sm text-white/70 leading-relaxed">{award.description}</p>
+
+                  {/* Award Image */}
+                  {award.image ? (
+                    <div className="relative w-full h-24 sm:h-28 rounded-lg overflow-hidden mb-3 border border-white/10">
+                      <img
+                        src={award.image}
+                        alt={award.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  ) : (
+                    <div className="relative w-full h-24 sm:h-28 rounded-lg overflow-hidden mb-3 border border-white/10 bg-white/5 flex items-center justify-center">
+                      <span className="text-xs text-white/30">Add image</span>
+                    </div>
+                  )}
+
+                  <p className="text-xs sm:text-sm text-white/50 font-medium mb-2">{award.organization}</p>
+                  <p className="text-sm text-white/70 leading-relaxed line-clamp-3">{award.description}</p>
 
                   {/* Bottom Decoration */}
                   <div
