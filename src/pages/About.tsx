@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X, UserCheck, Code, Terminal, Cpu, Sparkles } from "lucide-react"; // Added Tech Icons
+import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X, UserCheck, Code, Terminal, Cpu, Sparkles, Mail } from "lucide-react"; // Added Mail Icon
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -57,9 +57,9 @@ const communityMembers = [
   { name: "Dr. Nidhi Agarwal", role: "Educationist" },
 ];
 const developers = [
-  { name: "Vansh Pandey", role: "Lead Developer" },
-  { name: "Yash Agarwal", role: "Developer" },
-  { name: "Shivika", role: "Designer & Developer" },
+  { name: "Vansh Pandey", role: "Lead Developer", email: "vanshpandey928@gmail.com" }, // Put email here
+  { name: "Yash Agarwal", role: "Developer", email: "yashagr850@gmail.com" },       // Put email here
+  { name: "Shivika", role: "Designer & Developer", email: "shivika@example.com" }, // Put email here
 ];
 
 const supporters = [
@@ -292,12 +292,12 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.15 }}
-                className="group relative bg-background/50 backdrop-blur-sm border border-cyan-200/50 dark:border-cyan-900/50 rounded-2xl p-6 text-center hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.15)] hover:-translate-y-1 transition-all duration-300"
+                className="group relative bg-background/50 backdrop-blur-sm border border-cyan-200/50 dark:border-cyan-900/50 rounded-2xl p-6 text-center hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.15)] hover:-translate-y-1 transition-all duration-300 flex flex-col items-center h-full"
               >
                 {/* Glow Effect */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col items-center flex-grow">
                   <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 p-[2px] mb-4 group-hover:spin-slow">
                     <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
                       <Sparkles className="h-6 w-6 text-cyan-500" />
@@ -305,8 +305,19 @@ export default function About() {
                   </div>
                   
                   <h3 className="text-lg font-bold text-foreground mb-1">{dev.name}</h3>
-                  <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground font-mono">
+                  <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground font-mono mb-4">
                     <span className="text-cyan-500">{'>'}</span> {dev.role}
+                  </div>
+
+                  {/* --- CONTACT TAG / BUTTON --- */}
+                  <div className="mt-auto">
+                    <a 
+                      href={`mailto:${dev.email}`} 
+                      className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 text-cyan-600 hover:text-cyan-500 text-xs font-medium transition-colors"
+                    >
+                      <Mail className="h-3.5 w-3.5" />
+                      Contact
+                    </a>
                   </div>
                 </div>
               </motion.div>
