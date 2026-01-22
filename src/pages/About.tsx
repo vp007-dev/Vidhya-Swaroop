@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X } from "lucide-react";
+import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X, UserCheck, Code, Terminal, Cpu, Sparkles } from "lucide-react"; // Added Tech Icons
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -44,6 +44,23 @@ const leadership = {
     },
   ],
 };
+
+const communityMembers = [
+  { name: "Ms. Shashi Goyal", role: "District Coordinator" },
+  { name: "Ms. Seema Agarwal", role: "Educationist" },
+  { name: "Sneha Garg", role: "Member" },
+  { name: "Lucky Mittal", role: "Member" },
+  { name: "Supriya Khandelwal", role: "Member" },
+  { name: "CA Shivam Agarwal", role: " Financial Advisor" },
+  { name: "MR. Anand Agarwal", role: "Planning Advisor" },
+  { name: "Ms. Surbhi Aggrrawal", role: "Cultural Activity Incharge" },
+  { name: "Dr. Nidhi Agarwal", role: "Educationist" },
+];
+const developers = [
+  { name: "Vansh Pandey", role: "Lead Developer" },
+  { name: "Yash Agarwal", role: "Developer" },
+  { name: "Shivika", role: "Designer & Developer" },
+];
 
 const supporters = [
   { name: "Apollo Clinic Agra", image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/Apollo.jpg", description: "Apollo Clinic Agra is a multi-speciality outpatient healthcare center offering expert consultations, diagnostics, and preventive health services." },
@@ -212,6 +229,86 @@ export default function About() {
                 </div>
                 <h3 className="text-sm sm:text-base font-bold text-foreground mb-2">{supporter.name}</h3>
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3">{supporter.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="py-12 sm:py-20 bg-card border-t border-b border-border/50">
+        <div className="container px-4 sm:px-6 lg:px-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
+            <span className="inline-block px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-semibold mb-3 sm:mb-4">Dedicated Team</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Community Pillars</h2>
+          </motion.div>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+              {communityMembers.map((member, i) => (
+                <motion.div 
+                  key={member.name}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="flex items-center gap-4 bg-background border border-border px-5 py-4 rounded-xl shadow-sm hover:shadow-md hover:border-primary/30 transition-all min-w-[280px] sm:min-w-[320px]"
+                >
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <UserCheck className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="font-bold text-foreground text-sm sm:text-base">{member.name}</h4>
+                    <p className="text-xs text-muted-foreground font-medium">{member.role}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24 relative overflow-hidden bg-background">
+        {/* Tech Background Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+        
+        {/* Floating Icons Background */}
+        <div className="absolute top-10 left-10 text-cyan-500/10 animate-float hidden sm:block"><Code size={64} /></div>
+        <div className="absolute bottom-10 right-10 text-blue-500/10 animate-pulse hidden sm:block"><Cpu size={64} /></div>
+        
+        <div className="container px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12 sm:mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 text-xs font-mono mb-4">
+              <Terminal className="h-3 w-3" />
+              <span>Digital Architects</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-bold text-foreground">Built with <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600">Code & Love</span></h2>
+            <p className="text-sm text-muted-foreground mt-2 font-mono">&lt;meet_the_developers /&gt;</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {developers.map((dev, i) => (
+              <motion.div 
+                key={dev.name}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.15 }}
+                className="group relative bg-background/50 backdrop-blur-sm border border-cyan-200/50 dark:border-cyan-900/50 rounded-2xl p-6 text-center hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.15)] hover:-translate-y-1 transition-all duration-300"
+              >
+                {/* Glow Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="relative z-10">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 p-[2px] mb-4 group-hover:spin-slow">
+                    <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
+                      <Sparkles className="h-6 w-6 text-cyan-500" />
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-lg font-bold text-foreground mb-1">{dev.name}</h3>
+                  <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground font-mono">
+                    <span className="text-cyan-500">{'>'}</span> {dev.role}
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

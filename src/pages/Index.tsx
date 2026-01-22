@@ -218,7 +218,7 @@ const awards = [
     year: "2023",
     description: "Honoured for best social work",
     gradient: "from-amber-400 via-yellow-400 to-orange-400",
-    image: "", // Add award image URL here
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/select.jpeg", // Add award image URL here
   },
   {
     icon: Medal,
@@ -257,15 +257,15 @@ const awards = [
     gradient: "from-teal-400 via-cyan-400 to-blue-400",
     image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/sbidon.jpeg", // Add award image URL here
   },
-  {
-    icon: Award,
-    title: "State Bank Of India Selection",
-    organization: "SBI",
-    year: "2025",
-    description: "SBI Selects our students for POCSO committee member.",
-    gradient: "from-teal-400 via-cyan-400 to-blue-400",
-    image: "", // Add award image URL here
-  },
+  // {
+  //   icon: Award,
+  //   title: "State Bank Of India Selection",
+  //   organization: "SBI",
+  //   year: "2025",
+  //   description: "SBI Selects our students for POCSO committee member.",
+  //   gradient: "from-teal-400 via-cyan-400 to-blue-400",
+  //   image: "", // Add award image URL here
+  // },
 ];
 
 const certificates = [
