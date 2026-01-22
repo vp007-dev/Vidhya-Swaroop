@@ -9,8 +9,8 @@ const campaigns = [
   {
     id: "donation-drive",
     icon: Gift,
-    title: "Donation Drive",
-    subtitle: "Spreading Hope & Resources",
+    title: "Daan Mahotsava (Every Year)",
+    subtitle: "Spreading Hope & Resources (Since 2022, Every 8th December)",
     description: "Our donation drives are at the heart of our community outreach. We organize regular collection and distribution events to ensure essential items reach those who need them most.",
     color: "from-amber-500 to-orange-600",
     bgColor: "from-amber-50 to-orange-50",
@@ -26,12 +26,12 @@ const campaigns = [
       number: "4867+",
       label: "Items Donated",
     },
-    image: "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=600&h=400&fit=crop",
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/Donation.jpeg",
   },
   {
     id: "health-education",
     icon: HeartPulse,
-    title: "Female Health & Education Awareness",
+    title: "Siksha Sang Sehat, Sahas",
     subtitle: "Empowering Women Through Knowledge",
     description: "We conduct specialized awareness programs focusing on women's health and the importance of education. These sessions are designed to break taboos and empower women with essential knowledge.",
     color: "from-rose-500 to-pink-600",
@@ -48,7 +48,7 @@ const campaigns = [
       number: "500+",
       label: "Women Educated",
     },
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&h=400&fit=crop",
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/SSS.jpeg",
   },
   {
     id: "home-visits",
@@ -76,20 +76,20 @@ const campaigns = [
 
 const upcomingEvents = [
   {
-    title: "Annual Donation Drive 2026",
-    date: "February 15-20, 2026",
+    title: "Daan Mahotsava",
+    date: "Every 8th December",
     location: "Multiple Locations",
     description: "Join our biggest donation drive of the year",
   },
   {
-    title: "Women's Health Camp",
-    date: "March 8, 2026",
+    title: "Siksha Sang Sehat, Sahas (SSS)",
+    date: "8th March, 2026",
     location: "Community Center",
     description: "Free health checkups and awareness on International Women's Day",
   },
   {
     title: "Education Enrollment Drive",
-    date: "April 1-10, 2026",
+    date: "10th April, 2026",
     location: "Various Villages",
     description: "Enrolling children for the new academic session",
   },

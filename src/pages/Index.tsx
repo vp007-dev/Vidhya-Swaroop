@@ -221,8 +221,17 @@ const awards = [
     image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/select.jpeg", // Add award image URL here
   },
   {
+    icon: Award,
+    title: "Bhujariya Mela panckuyia",
+    organization: "Vanvasi Prakalp Sansthan",
+    year: "2023",
+    description: "Honored for her work in education sector by Honourable Mr. S.P Singh Baghel (MP) And Mrs. Nirmala Dixit (former President of Mahila Ayog)",
+    gradient: "from-teal-400 via-cyan-400 to-blue-400",
+    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/vanvasi.jpeg", // Add award image URL here
+  },
+  {
     icon: Medal,
-    title: "Bhijariya Mela panckuyia",
+    title: "Vanvasi Prakalp Sansthan",
     organization: "State Education Board",
     year: "2024",
     description:
@@ -239,15 +248,7 @@ const awards = [
     gradient: "from-rose-400 via-pink-400 to-fuchsia-400",
     image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/allen.jpeg", // Add award image URL here
   },
-  {
-    icon: Award,
-    title: "Vanvasi Prakalp Sansthan",
-    organization: "Vanvasi Prakalp Sansthan",
-    year: "2023",
-    description: "Honored for her work in education sector by Honourable Mr. S.P Singh Baghel (MP) And Mrs. Nirmala Dixit (former President of Mahila Ayog)",
-    gradient: "from-teal-400 via-cyan-400 to-blue-400",
-    image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/vanvasi.jpeg", // Add award image URL here
-  },
+  
   {
     icon: Award,
     title: "State Bank Of India Donation",

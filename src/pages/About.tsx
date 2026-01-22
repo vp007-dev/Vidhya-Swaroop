@@ -22,39 +22,39 @@ const leadership = {
     { 
       name: "Mrs. Monika Agarwal", 
       role: "Secretary", 
-      education: "MBA, MCOM , MA(ECONOMICS), B. ED, PHD pursiung", // Added Education
+      education: "MBA, M.Com , MA(ECONOMICS), B.ED, PHD pursiung", // Added Education
       image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/MonikaMam.jpeg", 
-      description: "Ms. Monika Agarwal is a dedicated educationist and social worker focused on foundational education for children from Nursery to Grade 5 and skill development for adults. She works toward holistic community development by promoting education, self-reliance, and confidence across all age groups." 
+      description: "Mrs. Monika Agarwal is a dedicated educationist and social worker with over 15 years of experience in the field of education and community development. She is deeply committed to strengthening foundational learning for children and actively promoting skill development programs for adults. Through her work, she focuses on holistic community upliftment by nurturing education, self-reliance, and confidence across all age groups, helping individuals build a stronger and more independent future." 
     },
   ],
   trustees: [
     { 
       name: "Shivani Agarwal", 
       role: "Trustee", 
-      education: "MA(Sanskrit), B. Ed", // Added Education
+      education: "MA(Sanskrit), B.Ed", // Added Education
       image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/Shivani.jpeg", 
-      description: "Ms. Shivani Agrawal is a committed educationist and trustee who brings strong academic knowledge and value-based learning to the foundation. With expertise in Sanskrit and education, she supports moral education, curriculum guidance, and holistic student development." 
+      description: "Mrs. Shivani Agrawal is a committed educationist and trustee who brings strong academic knowledge and value-based learning to the foundation. With expertise in Sanskrit and education, she supports moral education, curriculum guidance, and holistic student development." 
     },
     { 
       name: "Sakshi Agarwal", 
       role: "Trustee", 
       education: "MBA (HR)", // Added Education
       image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/Sakshi.jpeg", 
-      description: "Ms. Sakshi Agarwal contributes her expertise in human resources to support organizational development and people management within the foundation. She plays an active role in strengthening team coordination, volunteer engagement, and capacity building to ensure smooth and effective operations." 
+      description: "Mrs. Sakshi Agarwal contributes her expertise in human resources to support organizational development and people management within the foundation. She plays an active role in strengthening team coordination, volunteer engagement, and capacity building to ensure smooth and effective operations." 
     },
   ],
 };
 
 const communityMembers = [
-  { name: "Ms. Shashi Goyal", role: "District Coordinator" },
-  { name: "Ms. Seema Agarwal", role: "Educationist" },
-  { name: "Sneha Garg", role: "Member" },
-  { name: "Lucky Mittal", role: "Member" },
-  { name: "Supriya Khandelwal", role: "Member" },
   { name: "CA Shivam Agarwal", role: " Financial Advisor" },
+  { name: "Ms. Seema Agarwal", role: "Educationist" },
   { name: "MR. Anand Agarwal", role: "Planning Advisor" },
+  { name: "Ms. Shashi Goyal", role: "District Coordinator" },
   { name: "Ms. Surbhi Aggrrawal", role: "Cultural Activity Incharge" },
   { name: "Dr. Nidhi Agarwal", role: "Educationist" },
+  { name: "Lucky Mittal", role: "Member" },
+  { name: "Sneha Garg", role: "Member" },
+  { name: "Supriya Khandelwal", role: "Member" },
 ];
 const developers = [
   { name: "Vansh Pandey", role: "Lead Developer", email: "vanshpandey928@gmail.com" }, // Put email here
