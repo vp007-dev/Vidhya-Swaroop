@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Stethoscope, Heart, Target, Activity, Pill, BookOpen, Users, Home, Sprout, HandHeart, Award, CheckCircle, Syringe, SmilePlus, ShieldCheck, Camera } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedHealthIllustration } from "@/components/illustrations/AnimatedHealthIllustration";
 import { FloatingElements } from "@/components/illustrations/FloatingElements";
 import { GalleryGrid } from "@/components/GalleryLightbox";
+import { HealthcareIcon } from "@/components/icons/CustomIcons";
 
 const campaigns = [
   {
@@ -30,7 +32,7 @@ const campaigns = [
 
 const services = [
   {
-    icon: Activity,
+    icon: Stethoscope,
     title: "Health Screening",
     items: ["Blood pressure", "Blood sugar", "BMI assessment", "Oxygen levels"],
     color: "from-emerald-500 to-teal-600",
@@ -83,7 +85,12 @@ const healthGallery = [
   { src: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/health4.jpeg", alt: "" },
 ];
 
-export default function Health() {
+const Health = memo(() => {
+  const fadeInVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  }), []);
   return (
     <Layout>
       {/* Hero Section */}
@@ -97,9 +104,9 @@ export default function Health() {
         </div>
         <div className="container px-4 sm:px-6 lg:px-8 relative py-12 sm:py-20">
           <div className="max-w-4xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <motion.div {...fadeInVariants}>
               <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4 sm:mb-6">
-                <span className="text-lg sm:text-xl">🏥</span>
+                <HealthcareIcon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-600" />
                 <span className="text-xs sm:text-sm font-medium text-foreground">Healthcare Program</span>
               </div>
 
@@ -317,7 +324,7 @@ export default function Health() {
                   Support Healthcare
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-white/30 text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-white/30 text-black hover:bg-white/10">
                 <Link to="/contact">
                   Get in Touch
                 </Link>
@@ -328,4 +335,8 @@ export default function Health() {
       </section>
     </Layout>
   );
-}
+});
+
+Health.displayName = 'Health';
+
+export default Health;

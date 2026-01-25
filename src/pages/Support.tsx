@@ -1,10 +1,34 @@
+import { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Heart, Building2, QrCode, Award, CreditCard, Users, HandHeart, Banknote, CheckCircle, Sparkles, Handshake } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { TrophyIcon } from "@/components/icons/CustomIcons";
 import MarqueeSupporters from "@/components/MarqueeSupporters";
-const donationAmounts = [500, 1000, 2500, 5000, 10000, 25000];
+// Memoized components
+const StatCard = memo(({ stat, index }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 20 }} 
+    whileInView={{ opacity: 1, y: 0 }} 
+    viewport={{ once: true }} 
+    transition={{ delay: index * 0.1 }} 
+    className="text-center"
+  >
+    <div className={`w-10 h-10 sm:w-14 sm:h-14 mx-auto rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-2 sm:mb-3 shadow-lg`}>
+      <stat.icon className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
+    </div>
+    <div className="text-lg sm:text-2xl font-bold text-foreground">{stat.number}</div>
+    <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
+  </motion.div>
+));
+
+const BenefitCard = memo(({ item }) => (
+  <div className="flex items-center gap-3 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur">
+    <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-white shrink-0" />
+    <span className="text-sm sm:text-base text-white">{item}</span>
+  </div>
+));
 
 const impactStats = [
   { number: "100+", label: "Students Educated", icon: Users, color: "from-blue-500 to-indigo-600" },
@@ -34,7 +58,13 @@ const benefits = [
   "Annual donation drives",
 ];
 
-export default function Support() {
+const donationAmounts = [500, 1000, 2500, 5000, 10000, 25000];
+
+const Support = memo(() => {
+  const fadeInVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 }
+  }), []);
   return (
     <Layout>
       {/* Hero */}
@@ -42,7 +72,7 @@ export default function Support() {
         <div className="hidden sm:block absolute top-10 right-20 w-48 sm:w-80 h-48 sm:h-80 bg-gradient-to-br from-primary/20 to-amber-500/20 blob animate-float blur-3xl" />
         <div className="container px-4 sm:px-6 lg:px-8 relative py-12 sm:py-20">
           <div className="max-w-3xl mx-auto text-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <motion.div initial={fadeInVariants.initial} animate={fadeInVariants.animate}>
               <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 mb-4 sm:mb-6">
                 <Heart className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
                 <span className="text-xs sm:text-sm font-medium text-foreground">Support Our Mission</span>
@@ -63,13 +93,7 @@ export default function Support() {
         <div className="container px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {impactStats.map((stat, i) => (
-              <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="text-center">
-                <div className={`w-10 h-10 sm:w-14 sm:h-14 mx-auto rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-2 sm:mb-3 shadow-lg`}>
-                  <stat.icon className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
-                </div>
-                <div className="text-lg sm:text-2xl font-bold text-foreground">{stat.number}</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
-              </motion.div>
+              <StatCard key={stat.label} stat={stat} index={i} />
             ))}
           </div>
         </div>
@@ -156,14 +180,11 @@ export default function Support() {
         <div className="absolute inset-0 pattern-dots opacity-10" />
         <div className="container px-4 sm:px-6 lg:px-8 relative">
           <div className="max-w-3xl mx-auto text-center">
-            <Sparkles className="h-8 w-8 sm:h-12 sm:w-12 text-white/80 mx-auto mb-4 sm:mb-6" />
+            <TrophyIcon className="h-8 w-8 sm:h-12 sm:w-12 text-white/80 mx-auto mb-4 sm:mb-6" />
             <h2 className="text-2xl sm:text-4xl font-bold text-white mb-4 sm:mb-6">Why Support Us?</h2>
             <div className="grid sm:grid-cols-2 gap-3 sm:gap-4 text-left">
               {benefits.map((item) => (
-                <div key={item} className="flex items-center gap-3 p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur">
-                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-white shrink-0" />
-                  <span className="text-sm sm:text-base text-white">{item}</span>
-                </div>
+                <BenefitCard key={item} item={item} />
               ))}
             </div>
           </div>
@@ -171,4 +192,8 @@ export default function Support() {
       </section>
     </Layout>
   );
-}
+});
+
+Support.displayName = 'Support';
+
+export default Support;

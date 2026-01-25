@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Users, Heart, Monitor, Scissors, Smartphone, Music, Palette, Target, CheckCircle, Sparkles, Briefcase, Camera } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedWomanIllustration } from "@/components/illustrations/AnimatedWomanIllustration";
 import { FloatingElements } from "@/components/illustrations/FloatingElements";
 import { GalleryGrid } from "@/components/GalleryLightbox";
+import { WomenEmpowermentIcon } from "@/components/icons/CustomIcons";
 
 const programs = [
   {
@@ -74,7 +76,12 @@ const empowermentGallery = [
   { src: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/women.jpeg", alt: "" },
 ];
 
-export default function WomenEmpowerment() {
+const WomenEmpowerment = memo(() => {
+  const fadeInVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  }), []);
   return (
     <Layout>
       {/* Hero Section */}
@@ -88,9 +95,9 @@ export default function WomenEmpowerment() {
         
         <div className="container px-4 sm:px-6 lg:px-8 relative py-12 sm:py-20">
           <div className="max-w-4xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <motion.div {...fadeInVariants}>
               <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-rose-500/10 border border-rose-500/20 mb-4 sm:mb-6">
-                <span className="text-lg sm:text-xl">✨</span>
+                <WomenEmpowermentIcon className="h-4 w-4 sm:h-5 sm:w-5 text-rose-600" />
                 <span className="text-xs sm:text-sm font-medium text-foreground">Women Empowerment</span>
               </div>
 
@@ -274,7 +281,7 @@ export default function WomenEmpowerment() {
                   Support Women
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-white/30 text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-white/30 text-black hover:bg-white/10">
                 <Link to="/contact">
                   Get in Touch
                 </Link>
@@ -285,4 +292,8 @@ export default function WomenEmpowerment() {
       </section>
     </Layout>
   );
-}
+});
+
+WomenEmpowerment.displayName = 'WomenEmpowerment';
+
+export default WomenEmpowerment;

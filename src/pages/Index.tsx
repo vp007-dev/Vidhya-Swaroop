@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { memo, useMemo, useCallback } from "react";
 import {
   Heart,
   ArrowRight,
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
+import { BookIcon, SparkleIcon, HospitalIcon, StarIcon, EducationIcon, WomenEmpowermentIcon, HealthcareIcon } from "@/components/icons/CustomIcons";
 import logo from "@/assets/logo.jpg";
 import { FloatingElements } from "@/components/illustrations/FloatingElements";
 import { AnimatedHeroIllustration } from "@/components/illustrations/AnimatedHeroIllustration";
@@ -67,7 +69,7 @@ const programs = [
     subtitle: "Laugh & Learn School",
     description: "NCERT-based education from Nursery to Class V with complete study materials at the cost of chips.",
     link: "/projects/education",
-    icon: BookOpen,
+    icon: EducationIcon,
     gradient: "from-blue-500 via-indigo-500 to-violet-500",
     bgGradient: "from-blue-50 to-indigo-50",
   },
@@ -76,7 +78,7 @@ const programs = [
     subtitle: "Free Health Camps",
     description: "Preventive healthcare with screenings, consultations, and medicine distribution for all.",
     link: "/projects/health",
-    icon: Stethoscope,
+    icon: HealthcareIcon,
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     bgGradient: "from-emerald-50 to-teal-50",
   },
@@ -85,7 +87,7 @@ const programs = [
     subtitle: "Skills & Independence",
     description: "Tailoring, computers, digital marketing, and arts training for financial independence.",
     link: "/projects/women-empowerment",
-    icon: Sparkles,
+    icon: WomenEmpowermentIcon,
     gradient: "from-rose-500 via-pink-500 to-fuchsia-500",
     bgGradient: "from-rose-50 to-pink-50",
   },
@@ -300,7 +302,53 @@ const item = {
   show: { opacity: 1, y: 0 },
 };
 
-export default function Index() {
+// Memoized components for better performance
+const StatCard = memo(({ stat, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: index * 0.1 }}
+    className="text-center p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors"
+  >
+    <div className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}>
+      <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+    </div>
+    <div className="text-2xl sm:text-4xl font-bold text-white mb-1 sm:mb-2">{stat.number}</div>
+    <div className="text-xs sm:text-base text-white/60">{stat.label}</div>
+  </motion.div>
+));
+
+const ProgramCard = memo(({ program }) => (
+  <motion.div variants={item}>
+    <Link
+      to={program.link}
+      className={`group relative block h-full p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-br ${program.bgGradient} border border-border/50 overflow-hidden card-hover`}
+    >
+      <div className={`absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-br ${program.gradient} opacity-20 blur-3xl group-hover:opacity-40 transition-opacity`} />
+      <div className="relative">
+        <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${program.gradient} flex items-center justify-center mb-4 sm:mb-6 shadow-lg group-hover:scale-110 transition-transform`}>
+          <program.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
+        </div>
+        <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 sm:mb-2">
+          {program.subtitle}
+        </div>
+        <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 group-hover:text-primary transition-colors">
+          {program.title}
+        </h3>
+        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 sm:mb-6">
+          {program.description}
+        </p>
+        <span className="inline-flex items-center text-primary font-semibold text-sm sm:text-base">
+          Learn more
+          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1 group-hover:translate-x-2 transition-transform" />
+        </span>
+      </div>
+    </Link>
+  </motion.div>
+));
+
+const Index = memo(() => {
   return (
     <Layout>
       {/* Sliding Banner Section */}
@@ -390,7 +438,7 @@ export default function Index() {
                       key={i}
                       className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-amber-400 border-2 border-background flex items-center justify-center text-white text-xs font-bold"
                     >
-                      {i === 4 ? "+" : "★"}
+                      {i === 4 ? "+" : <StarIcon className="h-4 w-4" />}
                     </div>
                   ))}
                 </div>
@@ -502,41 +550,8 @@ export default function Index() {
             whileInView="show"
             viewport={{ once: true }}
           >
-            {programs.map((program, i) => (
-              <motion.div key={program.title} variants={item}>
-                <Link
-                  to={program.link}
-                  className={`group relative block h-full p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-br ${program.bgGradient} border border-border/50 overflow-hidden card-hover`}
-                >
-                  {/* Background Gradient Orb */}
-                  <div
-                    className={`absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-br ${program.gradient} opacity-20 blur-3xl group-hover:opacity-40 transition-opacity`}
-                  />
-
-                  <div className="relative">
-                    <div
-                      className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${program.gradient} flex items-center justify-center mb-4 sm:mb-6 shadow-lg group-hover:scale-110 transition-transform`}
-                    >
-                      <program.icon className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
-                    </div>
-
-                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 sm:mb-2">
-                      {program.subtitle}
-                    </div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2 sm:mb-3 group-hover:text-primary transition-colors">
-                      {program.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 sm:mb-6">
-                      {program.description}
-                    </p>
-
-                    <span className="inline-flex items-center text-primary font-semibold text-sm sm:text-base">
-                      Learn more
-                      <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1 group-hover:translate-x-2 transition-transform" />
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
+            {programs.map((program) => (
+              <ProgramCard key={program.title} program={program} />
             ))}
           </motion.div>
         </div>
@@ -778,22 +793,7 @@ export default function Index() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {stats.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="text-center p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors"
-              >
-                <div
-                  className={`w-12 h-12 sm:w-16 sm:h-16 mx-auto rounded-xl sm:rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center mb-3 sm:mb-4 shadow-lg`}
-                >
-                  <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
-                </div>
-                <div className="text-2xl sm:text-4xl font-bold text-white mb-1 sm:mb-2">{stat.number}</div>
-                <div className="text-xs sm:text-base text-white/60">{stat.label}</div>
-              </motion.div>
+              <StatCard key={stat.label} stat={stat} index={i} />
             ))}
           </div>
         </div>
@@ -814,12 +814,6 @@ export default function Index() {
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground">Moments of Impact</h2>
             </div>
-            <Button asChild variant="outline" size="sm" className="rounded-full self-start sm:self-auto">
-              <Link to="/about">
-                View All
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Link>
-            </Button>
           </motion.div>
 
           <GalleryGrid images={galleryImages} displayCount={5} />
@@ -887,4 +881,8 @@ export default function Index() {
       </section>
     </Layout>
   );
-}
+});
+
+Index.displayName = 'Index';
+
+export default Index;
