@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
+// Memoize static contact info to prevent recreation on every render
 const contactInfo = [
   { 
     icon: Phone, 
@@ -26,26 +27,55 @@ const contactInfo = [
   { 
     icon: MapPin, 
     title: "Location", 
-    // Updated with the specific registered address
     value: "94, Basant Vihar Rd, Karbala, Kamla Nagar, Agra, Uttar Pradesh 282005", 
     href: "https://www.google.com/maps/search/?api=1&query=94+Basant+Vihar+Rd+Karbala+Kamla+Nagar+Agra+Uttar+Pradesh+282005", 
     color: "from-rose-500 to-pink-600" 
   },
-];
+] as const;
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Memoize form handlers to prevent recreation on every render
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    toast({ title: "Message Sent!", description: "We'll get back to you soon." });
-    setFormData({ name: "", email: "", message: "" });
-    setIsSubmitting(false);
-  };
+    
+    try {
+      // TODO: Replace with actual API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      toast({ title: "Message Sent!", description: "We'll get back to you soon." });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      toast({ 
+        title: "Error", 
+        description: "Failed to send message. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [toast]);
+
+  const handleInputChange = useCallback((field: keyof typeof formData) => 
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setFormData(prev => ({ ...prev, [field]: e.target.value }));
+    }, []);
+
+  // Memoize animation variants
+  const fadeInLeft = useMemo(() => ({ 
+    initial: { opacity: 0, x: -30 }, 
+    whileInView: { opacity: 1, x: 0 }, 
+    viewport: { once: true } 
+  }), []);
+  
+  const fadeInRight = useMemo(() => ({ 
+    initial: { opacity: 0, x: 30 }, 
+    whileInView: { opacity: 1, x: 0 }, 
+    viewport: { once: true } 
+  }), []);
 
   return (
     <Layout>
@@ -73,7 +103,7 @@ export default function Contact() {
         <div className="container px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto">
             {/* Info */}
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="space-y-4 sm:space-y-6">
+            <motion.div {...fadeInLeft} className="space-y-4 sm:space-y-6">
               <div>
                 <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-3 sm:mb-4">Let's Connect</h2>
                 <p className="text-sm sm:text-base text-muted-foreground">Reach out to learn more about our programs or how you can help.</p>
@@ -107,12 +137,13 @@ export default function Contact() {
                   loading="lazy" 
                   title="Vidhya Swaroop Foundation Location" 
                   className="grayscale hover:grayscale-0 transition-all duration-500 sm:h-[200px]" 
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
               </div>
             </motion.div>
 
             {/* Form */}
-            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-background border border-border">
+            <motion.div {...fadeInRight} className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-background border border-border">
               <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-accent to-teal-600 flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
                 <Send className="h-5 w-5 sm:h-7 sm:w-7 text-white" />
               </div>
@@ -122,15 +153,15 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 <div className="space-y-1.5 sm:space-y-2">
                   <Label htmlFor="name" className="text-sm">Your Name</Label>
-                  <Input id="name" placeholder="Enter your name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" />
+                  <Input id="name" placeholder="Enter your name" value={formData.name} onChange={handleInputChange('name')} required className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" />
                 </div>
                 <div className="space-y-1.5 sm:space-y-2">
                   <Label htmlFor="email" className="text-sm">Your Email</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" />
+                  <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={handleInputChange('email')} required className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" />
                 </div>
                 <div className="space-y-1.5 sm:space-y-2">
                   <Label htmlFor="message" className="text-sm">Message</Label>
-                  <Textarea id="message" placeholder="How can we help?" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required rows={4} className="rounded-lg sm:rounded-xl resize-none text-sm sm:text-base" />
+                  <Textarea id="message" placeholder="How can we help?" value={formData.message} onChange={handleInputChange('message')} required rows={4} className="rounded-lg sm:rounded-xl resize-none text-sm sm:text-base" />
                 </div>
                 <Button type="submit" className="w-full h-10 sm:h-12 rounded-lg sm:rounded-xl shine text-sm sm:text-base" disabled={isSubmitting}>
                   {isSubmitting ? "Sending..." : <><Send className="h-4 w-4 mr-2" />Send Message</>}

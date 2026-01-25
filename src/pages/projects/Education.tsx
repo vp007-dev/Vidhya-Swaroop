@@ -1,3 +1,4 @@
+import { memo, useMemo } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, BookOpen, Users, Award, CheckCircle, Heart, Palette, Music, Baby, Calculator, Globe, PenTool, ArrowRight, Sparkles, Camera } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
@@ -6,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedEducationIllustration } from "@/components/illustrations/AnimatedEducationIllustration";
 import { FloatingElements } from "@/components/illustrations/FloatingElements";
 import { GalleryGrid } from "@/components/GalleryLightbox";
+import { EducationIcon } from "@/components/icons/CustomIcons";
 
 const classes = ["Nursery", "LKG", "UKG", "Class I", "Class II", "Class III", "Class IV", "Class V"];
 
@@ -42,7 +44,12 @@ const educationGallery = [
   { src: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/class2.jpeg", alt: "" },
 ];
 
-export default function Education() {
+const Education = memo(() => {
+  const fadeInVariants = useMemo(() => ({
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 }
+  }), []);
   return (
     <Layout>
       {/* Hero Section - Modern Asymmetric */}
@@ -56,9 +63,9 @@ export default function Education() {
         
         <div className="container px-4 sm:px-6 lg:px-8 relative py-12 sm:py-20">
           <div className="max-w-4xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <motion.div {...fadeInVariants}>
               <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4 sm:mb-6">
-                <span className="text-lg sm:text-xl">📚</span>
+                <EducationIcon className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
                 <span className="text-xs sm:text-sm font-medium text-foreground">Education Program</span>
               </div>
 
@@ -195,7 +202,7 @@ export default function Education() {
                   Support Education
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-white/30 text-white hover:bg-white/10">
+              <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-white/30 text-black hover:bg-white/10">
                 <Link to="/contact">
                   Get in Touch
                 </Link>
@@ -206,4 +213,8 @@ export default function Education() {
       </section>
     </Layout>
   );
-}
+});
+
+Education.displayName = 'Education';
+
+export default Education;

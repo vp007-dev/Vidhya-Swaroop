@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
+import { useRef } from "react";
 
 interface GalleryImage {
   src: string;
@@ -129,8 +130,10 @@ interface GalleryGridProps {
 export function GalleryGrid({ images, displayCount = 5 }: GalleryGridProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [showAll, setShowAll] = useState(false);
+  const galleryRef = useRef<HTMLDivElement>(null);
 
-  const displayImages = images.slice(0, displayCount);
+  const displayImages = showAll ? images : images.slice(0, displayCount);
   const remainingCount = images.length - displayCount;
 
   const openLightbox = (index: number) => {
@@ -138,16 +141,31 @@ export function GalleryGrid({ images, displayCount = 5 }: GalleryGridProps) {
     setLightboxOpen(true);
   };
 
+  const handleShowAll = () => {
+    setShowAll(true);
+  };
+
+  const handleShowLess = () => {
+    setShowAll(false);
+    // Scroll to center of gallery section
+    setTimeout(() => {
+      galleryRef.current?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }, 100);
+  };
+
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-4">
+      <div ref={galleryRef} className="grid grid-cols-2 md:grid-cols-5 gap-2 sm:gap-4">
         {displayImages.map((image, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
+            transition={{ delay: i * 0.05 }}
             onClick={() => openLightbox(i)}
             className={`relative rounded-xl sm:rounded-2xl overflow-hidden group cursor-pointer ${
               i === 0 ? 'col-span-2 row-span-2' : ''
@@ -173,23 +191,50 @@ export function GalleryGrid({ images, displayCount = 5 }: GalleryGridProps) {
           </motion.div>
         ))}
 
-        {/* View More Button - Shows remaining count */}
-        {remainingCount > 0 && (
+        {/* Show More Button */}
+        {!showAll && remainingCount > 0 && (
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: displayCount * 0.1 }}
-            onClick={() => openLightbox(0)}
+            transition={{ delay: displayCount * 0.05 }}
+            onClick={handleShowAll}
             className="relative rounded-xl sm:rounded-2xl overflow-hidden group cursor-pointer bg-gradient-to-br from-primary/20 to-amber-400/20 border-2 border-dashed border-primary/30 hover:border-primary/60 transition-all h-32 sm:h-40 md:h-48 flex flex-col items-center justify-center gap-2"
           >
             <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
               <span className="text-2xl font-bold text-primary">+{remainingCount}</span>
             </div>
-            <span className="text-primary font-semibold text-sm sm:text-base">View All Photos</span>
+            <span className="text-primary font-semibold text-sm sm:text-base">Show More</span>
           </motion.button>
         )}
       </div>
+
+      {/* View All in Lightbox Button */}
+      {showAll && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex justify-center gap-4 mt-6"
+        >
+          <Button
+            onClick={() => openLightbox(0)}
+            variant="outline"
+            size="lg"
+            className="rounded-full px-8 group"
+          >
+            <ZoomIn className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
+            View All in Gallery
+          </Button>
+          <Button
+            onClick={handleShowLess}
+            variant="ghost"
+            size="lg"
+            className="rounded-full px-8"
+          >
+            Show Less
+          </Button>
+        </motion.div>
+      )}
 
       <GalleryLightbox 
         images={images}

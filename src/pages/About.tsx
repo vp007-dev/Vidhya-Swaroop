@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, memo, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X, UserCheck, Code, Terminal, Cpu, Sparkles, Mail } from "lucide-react"; // Added Mail Icon
+import { Heart, Star, Target, Users, GraduationCap, HandHeart, Quote, Crown, Shield, Handshake, Calendar, X, UserCheck, Code, Terminal, Cpu, Sparkles, Mail } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { StarIcon, TrophyIcon } from "@/components/icons/CustomIcons";
 
 const inspirations = [
   { name: "Late Shri Vidhya Sagar Agarwal", description: "A visionary educator whose belief that 'every child deserves a chance to learn' continues to guide our mission." },
@@ -77,8 +78,16 @@ const purposes = [
   { icon: Target, title: "Serve with Compassion", desc: "Create lasting impact through service" },
 ];
 
-export default function About() {
+const About = memo(() => {
   const [selectedMember, setSelectedMember] = useState(null);
+
+  const handleMemberClick = useCallback((member) => {
+    setSelectedMember(member);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setSelectedMember(null);
+  }, []);
 
   return (
     <Layout>
@@ -128,8 +137,8 @@ export default function About() {
           <div className="grid sm:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto">
             {inspirations.map((person, i) => (
               <motion.div key={person.name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-card border border-border hover:border-primary/30 transition-all card-hover">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
-                  <Star className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+                <div className="w-10 h-10 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
+                  <StarIcon className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2 sm:mb-3">{person.name}</h3>
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{person.description}</p>
@@ -152,7 +161,7 @@ export default function About() {
               <motion.div 
                 key={person.name} 
                 layoutId={`card-${person.name}`} 
-                onClick={() => setSelectedMember(person)}
+                onClick={() => handleMemberClick(person)}
                 initial={{ opacity: 0, y: 20 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true }} 
@@ -369,7 +378,7 @@ export default function About() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedMember(null)}
+            onClick={handleCloseModal}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
           >
             <motion.div 
@@ -382,7 +391,7 @@ export default function About() {
               
               {/* Close Button */}
               <button 
-                onClick={() => setSelectedMember(null)}
+                onClick={handleCloseModal}
                 className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background border border-border transition-colors"
               >
                 <X className="h-5 w-5 text-foreground" />
@@ -441,4 +450,8 @@ export default function About() {
       </AnimatePresence>
     </Layout>
   );
-}
+});
+
+About.displayName = 'About';
+
+export default About;
