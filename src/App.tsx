@@ -4,7 +4,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
-import { Suspense, lazy } from "react";
+import { TimeLock } from "@/components/TimeLock";
+import { useTimeLock } from "@/hooks/useTimeLock";
+import { Suspense, lazy, useState } from "react";
 
 // Lazy load all route components for better bundle splitting
 const Index = lazy(() => import("./pages/Index"));
@@ -36,29 +38,51 @@ const queryClient = new QueryClient({
   },
 });
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/projects/education" element={<Education />} />
-            <Route path="/projects/health" element={<Health />} />
-            <Route path="/projects/women-empowerment" element={<WomenEmpowerment />} />
-            <Route path="/campaigns" element={<Campaigns />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const { isUnlocked, timeLeft } = useTimeLock();
+  const [showWebsite, setShowWebsite] = useState(isUnlocked); // Initialize based on unlock status
+
+  // Skip animation if already unlocked
+  if (isUnlocked && showWebsite) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <ScrollToTop />
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/support" element={<Support />} />
+                <Route path="/projects/education" element={<Education />} />
+                <Route path="/projects/health" element={<Health />} />
+                <Route path="/projects/women-empowerment" element={<WomenEmpowerment />} />
+                <Route path="/campaigns" element={<Campaigns />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+        </TooltipProvider>
+      </QueryClientProvider>
+    );
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <TimeLock 
+          timeLeft={timeLeft} 
+          isUnlocked={isUnlocked}
+          onAnimationComplete={() => setShowWebsite(true)}
+        />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;

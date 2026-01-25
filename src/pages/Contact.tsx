@@ -1,12 +1,14 @@
 import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageSquare, User, Building } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { submitContactForm, type ContactFormData } from "@/lib/contact";
 
 // Memoize static contact info to prevent recreation on every render
 const contactInfo = [
@@ -34,7 +36,14 @@ const contactInfo = [
 ] as const;
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+    type: "general"
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -44,10 +53,24 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      // TODO: Replace with actual API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast({ title: "Message Sent!", description: "We'll get back to you soon." });
-      setFormData({ name: "", email: "", message: "" });
+      const result = await submitContactForm(formData);
+      
+      if (result.success) {
+        toast({ 
+          title: "Message Sent Successfully!", 
+          description: "Thank you for contacting us. We'll get back to you soon." 
+        });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+          type: "general"
+        });
+      } else {
+        throw new Error(result.error);
+      }
     } catch (error) {
       toast({ 
         title: "Error", 
@@ -57,11 +80,16 @@ export default function Contact() {
     } finally {
       setIsSubmitting(false);
     }
-  }, [toast]);
+  }, [formData, toast]);
 
-  const handleInputChange = useCallback((field: keyof typeof formData) => 
+  const handleInputChange = useCallback((field: keyof ContactFormData) => 
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setFormData(prev => ({ ...prev, [field]: e.target.value }));
+    }, []);
+
+  const handleSelectChange = useCallback((field: keyof ContactFormData) => 
+    (value: string) => {
+      setFormData(prev => ({ ...prev, [field]: value }));
     }, []);
 
   // Memoize animation variants
@@ -151,20 +179,110 @@ export default function Contact() {
               <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">We'll respond as soon as possible</p>
 
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
-                <div className="space-y-1.5 sm:space-y-2">
-                  <Label htmlFor="name" className="text-sm">Your Name</Label>
-                  <Input id="name" placeholder="Enter your name" value={formData.name} onChange={handleInputChange('name')} required className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" />
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="name" className="text-sm flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      Full Name *
+                    </Label>
+                    <Input 
+                      id="name" 
+                      placeholder="Enter your full name" 
+                      value={formData.name} 
+                      onChange={handleInputChange('name')} 
+                      required 
+                      className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" 
+                    />
+                  </div>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="email" className="text-sm flex items-center gap-2">
+                      <Mail className="h-4 w-4" />
+                      Email Address *
+                    </Label>
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="your@email.com" 
+                      value={formData.email} 
+                      onChange={handleInputChange('email')} 
+                      required 
+                      className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" 
+                    />
+                  </div>
                 </div>
-                <div className="space-y-1.5 sm:space-y-2">
-                  <Label htmlFor="email" className="text-sm">Your Email</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" value={formData.email} onChange={handleInputChange('email')} required className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" />
+                
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="phone" className="text-sm flex items-center gap-2">
+                      <Phone className="h-4 w-4" />
+                      Phone Number
+                    </Label>
+                    <Input 
+                      id="phone" 
+                      type="tel" 
+                      placeholder="+91 XXXXX XXXXX" 
+                      value={formData.phone} 
+                      onChange={handleInputChange('phone')} 
+                      className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" 
+                    />
+                  </div>
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <Label htmlFor="type" className="text-sm flex items-center gap-2">
+                      <Building className="h-4 w-4" />
+                      Inquiry Type *
+                    </Label>
+                    <Select value={formData.type} onValueChange={handleSelectChange('type')}>
+                      <SelectTrigger className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base">
+                        <SelectValue placeholder="Select inquiry type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="general">General Inquiry</SelectItem>
+                        <SelectItem value="volunteer">Volunteer Opportunity</SelectItem>
+                        <SelectItem value="donation">Donation Information</SelectItem>
+                        <SelectItem value="partnership">Partnership</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
+                
                 <div className="space-y-1.5 sm:space-y-2">
-                  <Label htmlFor="message" className="text-sm">Message</Label>
-                  <Textarea id="message" placeholder="How can we help?" value={formData.message} onChange={handleInputChange('message')} required rows={4} className="rounded-lg sm:rounded-xl resize-none text-sm sm:text-base" />
+                  <Label htmlFor="subject" className="text-sm">Subject *</Label>
+                  <Input 
+                    id="subject" 
+                    placeholder="Brief subject of your message" 
+                    value={formData.subject} 
+                    onChange={handleInputChange('subject')} 
+                    required 
+                    className="h-10 sm:h-12 rounded-lg sm:rounded-xl text-sm sm:text-base" 
+                  />
                 </div>
-                <Button type="submit" className="w-full h-10 sm:h-12 rounded-lg sm:rounded-xl shine text-sm sm:text-base" disabled={isSubmitting}>
-                  {isSubmitting ? "Sending..." : <><Send className="h-4 w-4 mr-2" />Send Message</>}
+                
+                <div className="space-y-1.5 sm:space-y-2">
+                  <Label htmlFor="message" className="text-sm">Message *</Label>
+                  <Textarea 
+                    id="message" 
+                    placeholder="Please provide details about your inquiry..." 
+                    value={formData.message} 
+                    onChange={handleInputChange('message')} 
+                    required 
+                    rows={5} 
+                    className="rounded-lg sm:rounded-xl resize-none text-sm sm:text-base" 
+                  />
+                </div>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full h-10 sm:h-12 rounded-lg sm:rounded-xl shine text-sm sm:text-base" 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    "Sending..."
+                  ) : (
+                    <>
+                      <Send className="h-4 w-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
                 </Button>
               </form>
             </motion.div>
