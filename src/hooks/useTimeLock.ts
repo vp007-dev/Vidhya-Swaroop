@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
 const UNLOCK_KEY = 'vidhya_swaroop_unlocked';
-const TARGET_HOUR = 10;
-const TARGET_MINUTE = 0;
+const TARGET_HOUR = 12;
+const TARGET_MINUTE = 30;
 
 export const useTimeLock = () => {
   const [isUnlocked, setIsUnlocked] = useState(() => {
