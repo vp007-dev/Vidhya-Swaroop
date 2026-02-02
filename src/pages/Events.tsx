@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { GalleryGrid } from "@/components/GalleryLightbox";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Layout } from "@/components/layout/Layout";
 import annapurnaImg from "@/assets/Annapurna.jpeg";
 import lionKingImg from "@/assets/lionsking.jpeg";
 
@@ -29,79 +30,81 @@ export default function Events() {
     const [selectedEvent, setSelectedEvent] = useState<typeof EVENT_DATA | null>(null);
 
     return (
-        <div className="min-h-screen bg-background pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+        <Layout>
+            <div className="min-h-screen bg-background pb-16 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto pt-8">
 
-                {/* Page Header */}
-                <div className="text-center mb-16">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl sm:text-5xl font-bold text-foreground mb-4"
-                    >
-                        Our <span className="text-primary">Events</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-muted-foreground text-lg max-w-2xl mx-auto"
-                    >
-                        Discover our latest initiatives, gatherings, and impactful moments.
-                    </motion.p>
-                </div>
+                    {/* Page Header */}
+                    <div className="text-center mb-16">
+                        <motion.h1
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-4xl sm:text-5xl font-bold text-foreground mb-4"
+                        >
+                            Our <span className="text-primary">Events</span>
+                        </motion.h1>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-muted-foreground text-lg max-w-2xl mx-auto"
+                        >
+                            Discover our latest initiatives, gatherings, and impactful moments.
+                        </motion.p>
+                    </div>
 
-                {/* Events Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <EventCard
-                        event={EVENT_DATA}
-                        onClick={() => setSelectedEvent(EVENT_DATA)}
-                    />
-                    {/* Future events will be mapped here */}
-                </div>
+                    {/* Events Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <EventCard
+                            event={EVENT_DATA}
+                            onClick={() => setSelectedEvent(EVENT_DATA)}
+                        />
+                        {/* Future events will be mapped here */}
+                    </div>
 
-                {/* Event Detail Modal */}
-                <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
-                    <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-background/95 backdrop-blur-xl border-border/50">
-                        <DialogHeader>
-                            <DialogTitle className="text-2xl sm:text-3xl font-bold mb-2">
-                                {selectedEvent?.title}
-                            </DialogTitle>
-                            <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
-                                <div className="flex items-center gap-1">
-                                    <Calendar className="w-4 h-4" />
-                                    {selectedEvent?.date}
+                    {/* Event Detail Modal */}
+                    <Dialog open={!!selectedEvent} onOpenChange={(open) => !open && setSelectedEvent(null)}>
+                        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-background/95 backdrop-blur-xl border-border/50">
+                            <DialogHeader>
+                                <DialogTitle className="text-2xl sm:text-3xl font-bold mb-2">
+                                    {selectedEvent?.title}
+                                </DialogTitle>
+                                <div className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4">
+                                    <div className="flex items-center gap-1">
+                                        <Calendar className="w-4 h-4" />
+                                        {selectedEvent?.date}
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        <MapPin className="w-4 h-4" />
+                                        {selectedEvent?.location}
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-1">
-                                    <MapPin className="w-4 h-4" />
-                                    {selectedEvent?.location}
+                            </DialogHeader>
+
+                            <div className="space-y-8">
+                                {/* Context / Description */}
+                                <div className="text-foreground/90 leading-relaxed">
+                                    {selectedEvent?.description}
+                                </div>
+
+                                {/* Gallery Section */}
+                                <div>
+                                    <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                                        Event Gallery
+                                    </h3>
+                                    {selectedEvent && (
+                                        <GalleryGrid
+                                            images={selectedEvent.images}
+                                            displayCount={4}
+                                        />
+                                    )}
                                 </div>
                             </div>
-                        </DialogHeader>
-
-                        <div className="space-y-8">
-                            {/* Context / Description */}
-                            <div className="text-foreground/90 leading-relaxed">
-                                {selectedEvent?.description}
-                            </div>
-
-                            {/* Gallery Section */}
-                            <div>
-                                <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                                    Event Gallery
-                                </h3>
-                                {selectedEvent && (
-                                    <GalleryGrid
-                                        images={selectedEvent.images}
-                                        displayCount={4}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </DialogContent>
-                </Dialog>
+                        </DialogContent>
+                    </Dialog>
+                </div>
             </div>
-        </div>
+        </Layout>
     );
 }
 
