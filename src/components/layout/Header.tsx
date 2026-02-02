@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown, Heart, HandHeart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  EducationIcon, 
-  WomenEmpowermentIcon, 
-  HealthcareIcon 
+import {
+  EducationIcon,
+  WomenEmpowermentIcon,
+  HealthcareIcon
 } from "@/components/icons/CustomIcons";
 import logo from "@/assets/logo.jpg";
 
@@ -21,6 +21,7 @@ const navigation = [
       { name: "Healthcare", href: "/projects/health", icon: HealthcareIcon },
     ],
   },
+  { name: "Events", href: "/events" },
   { name: "Campaigns", href: "/campaigns" },
   { name: "About", href: "/about" },
   { name: "Support", href: "/support" },
@@ -29,7 +30,7 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [projectsOpen, setProjectsOpen] = useState(true); 
+  const [projectsOpen, setProjectsOpen] = useState(true);
   const [scrolled, setScrolled] = useState(false);
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const location = useLocation();
@@ -49,15 +50,14 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 z-[100] w-full transition-all duration-300 ${
-          scrolled
-            ? "bg-background/80 backdrop-blur-md border-b border-border/40 shadow-sm"
-            : "bg-transparent border-b border-transparent"
-        }`}
+        className={`fixed top-0 z-[100] w-full transition-all duration-300 ${scrolled
+          ? "bg-background/80 backdrop-blur-md border-b border-border/40 shadow-sm"
+          : "bg-transparent border-b border-transparent"
+          }`}
       >
         <nav className="container px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 sm:h-20 items-center justify-between">
-            
+
             {/* --- Logo Area --- */}
             <Link to="/" className="flex items-center gap-3 group z-50">
               <div className="relative">
@@ -86,15 +86,14 @@ export function Header() {
             <div className="hidden lg:flex lg:items-center lg:gap-1">
               {navigation.map((item) => {
                 const isItemActive = item.href === location.pathname || item.children?.some(c => c.href === location.pathname);
-                
+
                 return (
                   <div key={item.name} className="relative group">
                     {item.children ? (
                       // Dropdown Parent
                       <button
-                        className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                          isItemActive ? "text-primary bg-primary/10" : "text-foreground hover:bg-secondary/80"
-                        }`}
+                        className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${isItemActive ? "text-primary bg-primary/10" : "text-foreground hover:bg-secondary/80"
+                          }`}
                       >
                         {item.name}
                         <ChevronDown className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-rotate-180" />
@@ -105,9 +104,8 @@ export function Header() {
                         to={item.href}
                         onMouseEnter={() => setHoveredPath(item.href)}
                         onMouseLeave={() => setHoveredPath(null)}
-                        className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                          isActive(item.href) ? "text-primary font-semibold" : "text-foreground hover:text-foreground/80"
-                        }`}
+                        className={`relative px-4 py-2 rounded-full text-sm font-medium transition-colors ${isActive(item.href) ? "text-primary font-semibold" : "text-foreground hover:text-foreground/80"
+                          }`}
                       >
                         {item.name}
                         {/* Subtle hover pill animation */}
@@ -135,9 +133,8 @@ export function Header() {
                             <Link
                               key={child.name}
                               to={child.href}
-                              className={`group/item flex items-center gap-3 px-3 py-3 rounded-xl transition-all hover:bg-secondary/80 ${
-                                isActive(child.href) ? "bg-secondary" : ""
-                              }`}
+                              className={`group/item flex items-center gap-3 px-3 py-3 rounded-xl transition-all hover:bg-secondary/80 ${isActive(child.href) ? "bg-secondary" : ""
+                                }`}
                             >
                               <div className={`p-2 rounded-lg bg-background border border-border/50 shadow-sm transition-colors group-hover/item:border-primary/30 ${isActive(child.href) ? "text-primary" : "text-muted-foreground group-hover/item:text-primary"}`}>
                                 <child.icon className="h-5 w-5" />
@@ -157,8 +154,8 @@ export function Header() {
 
             {/* --- Right Actions (Desktop) --- */}
             <div className="flex items-center gap-3">
-               {/* Volunteer Button - Desktop (Original Style Kept) */}
-               <Button asChild className="hidden sm:flex rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all shine bg-secondary text-secondary-foreground hover:bg-secondary/80">
+              {/* Volunteer Button - Desktop (Original Style Kept) */}
+              <Button asChild className="hidden sm:flex rounded-full px-6 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all shine bg-secondary text-secondary-foreground hover:bg-secondary/80">
                 <Link to="/contact">
                   <HandHeart className="h-4 w-4 mr-2" />
                   Volunteer
@@ -198,7 +195,7 @@ export function Header() {
             className="fixed inset-x-0 top-[64px] sm:top-[80px] bottom-0 z-[99] bg-background/95 backdrop-blur-2xl border-t border-border overflow-y-auto lg:hidden"
           >
             <div className="container px-6 py-8 pb-20 space-y-6">
-              
+
               {/* Mobile Links */}
               <div className="flex flex-col space-y-1">
                 {navigation.map((item, index) => (
@@ -217,7 +214,7 @@ export function Header() {
                           {item.name}
                           <ChevronDown className={`h-5 w-5 text-muted-foreground transition-transform duration-300 ${projectsOpen ? "rotate-180" : ""}`} />
                         </button>
-                        
+
                         <AnimatePresence>
                           {projectsOpen && (
                             <motion.div
@@ -232,9 +229,8 @@ export function Header() {
                                     key={child.name}
                                     to={child.href}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className={`flex items-center gap-3 py-2 px-3 rounded-lg text-base transition-colors ${
-                                      isActive(child.href) ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                                    }`}
+                                    className={`flex items-center gap-3 py-2 px-3 rounded-lg text-base transition-colors ${isActive(child.href) ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                                      }`}
                                   >
                                     <child.icon className="h-5 w-5" />
                                     {child.name}
@@ -249,9 +245,8 @@ export function Header() {
                       <Link
                         to={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className={`block py-3 text-lg font-medium border-b border-border/40 last:border-0 ${
-                          isActive(item.href) ? "text-primary" : "text-foreground"
-                        }`}
+                        className={`block py-3 text-lg font-medium border-b border-border/40 last:border-0 ${isActive(item.href) ? "text-primary" : "text-foreground"
+                          }`}
                       >
                         {item.name}
                       </Link>
@@ -261,15 +256,15 @@ export function Header() {
               </div>
 
               {/* Mobile Actions */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
                 className="pt-6 grid grid-cols-2 gap-4"
               >
-                <Button 
-                  asChild 
-                  variant="outline" 
+                <Button
+                  asChild
+                  variant="outline"
                   className="w-full h-12 text-base rounded-xl border-border/60 hover:bg-secondary"
                 >
                   <Link to="/contact" onClick={() => setMobileMenuOpen(false)}>
@@ -277,8 +272,8 @@ export function Header() {
                     Volunteer
                   </Link>
                 </Button>
-                <Button 
-                  asChild 
+                <Button
+                  asChild
                   className="w-full h-12 text-base rounded-xl shadow-lg shadow-primary/20"
                 >
                   <Link to="/support" onClick={() => setMobileMenuOpen(false)}>
