@@ -62,19 +62,19 @@ const developers = [
     name: "Vansh Pandey",
     role: "Lead Developer",
     email: "vanshpandey928@gmail.com",
-    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/27fe4ae17da07eb174bd2f98c9da300ddaa96079/vp.jpeg?token=BSYBEBOBW5YBIY63M7OCWQTJQIPPY"
+    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/refs/heads/main/vp.jpeg"
   },
   {
     name: "Yash Agarwal",
     role: "Developer",
     email: "yashagr850@gmail.com",
-    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/27fe4ae17da07eb174bd2f98c9da300ddaa96079/ya.jpeg?token=BSYBEBLAZD3GCSZJKOKXDVDJQIPPY"
+    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/refs/heads/main/ya.jpeg"
   },
   {
     name: "Shivika",
     role: "Designer & Developer",
     email: "shivika@example.com",
-    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/27fe4ae17da07eb174bd2f98c9da300ddaa96079/Shivika.jpeg?token=BSYBEBKJVRO3F6XHNCQFLBLJQIPPY"
+    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/refs/heads/main/Shivika.jpeg"
   },
 ];
 
