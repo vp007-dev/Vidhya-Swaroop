@@ -13,35 +13,35 @@ const inspirations = [
 
 const leadership = {
   presidents: [
-    { 
-      name: "Mr. Vikas Agarwal", 
-      role: "President", 
+    {
+      name: "Mr. Vikas Agarwal",
+      role: "President",
       education: "MBA, M.Com", // Added Education
-      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/vikas.jpeg", 
-      description: "Mr. Vikas Agarwal provides strategic leadership and financial oversight to the foundation. With expertise in corporate governance and finance, he ensures transparency, compliance, and sustainable growth, supporting the foundation’s long-term mission and social impact." 
+      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/vikas.jpeg",
+      description: "Mr. Vikas Agarwal provides strategic leadership and financial oversight to the foundation. With expertise in corporate governance and finance, he ensures transparency, compliance, and sustainable growth, supporting the foundation’s long-term mission and social impact."
     },
-    { 
-      name: "Mrs. Monika Agarwal", 
-      role: "Secretary", 
+    {
+      name: "Mrs. Monika Agarwal",
+      role: "Secretary",
       education: "MBA, M.Com , MA(ECONOMICS), B.ED, PHD pursiung", // Added Education
-      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/MonikaMam.jpeg", 
-      description: "Mrs. Monika Agarwal is a dedicated educationist and social worker with over 15 years of experience in the field of education and community development. She is deeply committed to strengthening foundational learning for children and actively promoting skill development programs for adults. Through her work, she focuses on holistic community upliftment by nurturing education, self-reliance, and confidence across all age groups, helping individuals build a stronger and more independent future." 
+      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/MonikaMam.jpeg",
+      description: "Mrs. Monika Agarwal is a dedicated educationist and social worker with over 15 years of experience in the field of education and community development. She is deeply committed to strengthening foundational learning for children and actively promoting skill development programs for adults. Through her work, she focuses on holistic community upliftment by nurturing education, self-reliance, and confidence across all age groups, helping individuals build a stronger and more independent future."
     },
   ],
   trustees: [
-    { 
-      name: "Shivani Agarwal", 
-      role: "Trustee", 
+    {
+      name: "Shivani Agarwal",
+      role: "Trustee",
       education: "MA(Sanskrit), B.Ed", // Added Education
-      image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/Shivani.jpeg", 
-      description: "Mrs. Shivani Agrawal is a committed educationist and trustee who brings strong academic knowledge and value-based learning to the foundation. With expertise in Sanskrit and education, she supports moral education, curriculum guidance, and holistic student development." 
+      image: "https://raw.githubusercontent.com/vp007-dev/community-care-hub/refs/heads/main/src/assets/Shivani.jpeg",
+      description: "Mrs. Shivani Agrawal is a committed educationist and trustee who brings strong academic knowledge and value-based learning to the foundation. With expertise in Sanskrit and education, she supports moral education, curriculum guidance, and holistic student development."
     },
-    { 
-      name: "Sakshi Agarwal", 
-      role: "Trustee", 
+    {
+      name: "Sakshi Agarwal",
+      role: "Trustee",
       education: "MBA (HR)", // Added Education
-      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/Sakshi.jpeg", 
-      description: "Mrs. Sakshi Agarwal contributes her expertise in human resources to support organizational development and people management within the foundation. She plays an active role in strengthening team coordination, volunteer engagement, and capacity building to ensure smooth and effective operations." 
+      image: "https://cdn.jsdelivr.net/gh/vp007-dev/community-care-hub@main/src/assets/Sakshi.jpeg",
+      description: "Mrs. Sakshi Agarwal contributes her expertise in human resources to support organizational development and people management within the foundation. She plays an active role in strengthening team coordination, volunteer engagement, and capacity building to ensure smooth and effective operations."
     },
   ],
 };
@@ -58,9 +58,24 @@ const communityMembers = [
   { name: "Supriya Khandelwal", role: "Member" },
 ];
 const developers = [
-  { name: "Vansh Pandey", role: "Lead Developer", email: "vanshpandey928@gmail.com" }, // Put email here
-  { name: "Yash Agarwal", role: "Developer", email: "yashagr850@gmail.com" },       // Put email here
-  { name: "Shivika", role: "Designer & Developer", email: "shivika@example.com" }, // Put email here
+  {
+    name: "Vansh Pandey",
+    role: "Lead Developer",
+    email: "vanshpandey928@gmail.com",
+    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/27fe4ae17da07eb174bd2f98c9da300ddaa96079/vp.jpeg?token=BSYBEBOBW5YBIY63M7OCWQTJQIPPY"
+  },
+  {
+    name: "Yash Agarwal",
+    role: "Developer",
+    email: "yashagr850@gmail.com",
+    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/27fe4ae17da07eb174bd2f98c9da300ddaa96079/ya.jpeg?token=BSYBEBLAZD3GCSZJKOKXDVDJQIPPY"
+  },
+  {
+    name: "Shivika",
+    role: "Designer & Developer",
+    email: "shivika@example.com",
+    image: "https://raw.githubusercontent.com/YashAgr-dev/Private-data/27fe4ae17da07eb174bd2f98c9da300ddaa96079/Shivika.jpeg?token=BSYBEBKJVRO3F6XHNCQFLBLJQIPPY"
+  },
 ];
 
 const supporters = [
@@ -158,13 +173,13 @@ const About = memo(() => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {[...leadership.presidents, ...leadership.trustees].map((person, i) => (
-              <motion.div 
-                key={person.name} 
-                layoutId={`card-${person.name}`} 
+              <motion.div
+                key={person.name}
+                layoutId={`card-${person.name}`}
                 onClick={() => handleMemberClick(person)}
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
                 className="group cursor-pointer p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-background border border-border hover:border-primary/30 transition-all hover:shadow-lg text-center relative"
               >
@@ -176,17 +191,16 @@ const About = memo(() => {
                     <span className="text-2xl sm:text-3xl font-bold text-primary">{person.name.split(' ').map(n => n[0]).join('')}</span>
                   )}
                 </div>
-                
+
                 {/* Role Badge */}
-                <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3 ${
-                  person.role === 'President' 
-                    ? 'bg-amber-500/10 text-amber-600' 
-                    : 'bg-teal-500/10 text-teal-600'
-                }`}>
+                <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3 ${person.role === 'President'
+                  ? 'bg-amber-500/10 text-amber-600'
+                  : 'bg-teal-500/10 text-teal-600'
+                  }`}>
                   {person.role === 'President' ? <Crown className="h-3 w-3" /> : <Shield className="h-3 w-3" />}
                   {person.role}
                 </div>
-                
+
                 {/* Name */}
                 <h3 className="text-base sm:text-lg font-bold text-foreground mb-2">{person.name}</h3>
 
@@ -199,7 +213,7 @@ const About = memo(() => {
                     </span>
                   </div>
                 )}
-                
+
                 {/* Description (Truncated) */}
                 <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed line-clamp-3 group-hover:text-foreground/80 transition-colors">
                   {person.description}
@@ -221,12 +235,12 @@ const About = memo(() => {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {supporters.map((supporter, i) => (
-              <motion.div 
-                key={supporter.name} 
-                initial={{ opacity: 0, y: 20 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true }} 
-                transition={{ delay: i * 0.1 }} 
+              <motion.div
+                key={supporter.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
                 className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-card border border-border hover:border-primary/30 transition-all card-hover text-center"
               >
                 <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-br from-accent/20 to-primary/20 border-4 border-accent/30 flex items-center justify-center mb-4 overflow-hidden shadow-lg">
@@ -253,7 +267,7 @@ const About = memo(() => {
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
               {communityMembers.map((member, i) => (
-                <motion.div 
+                <motion.div
                   key={member.name}
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -278,11 +292,11 @@ const About = memo(() => {
       <section className="py-16 sm:py-24 relative overflow-hidden bg-background">
         {/* Tech Background Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-        
+
         {/* Floating Icons Background */}
         <div className="absolute top-10 left-10 text-cyan-500/10 animate-float hidden sm:block"><Code size={64} /></div>
         <div className="absolute bottom-10 right-10 text-blue-500/10 animate-pulse hidden sm:block"><Cpu size={64} /></div>
-        
+
         <div className="container px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-600 text-xs font-mono mb-4">
@@ -295,7 +309,7 @@ const About = memo(() => {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {developers.map((dev, i) => (
-              <motion.div 
+              <motion.div
                 key={dev.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -305,14 +319,18 @@ const About = memo(() => {
               >
                 {/* Glow Effect */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                
+
                 <div className="relative z-10 flex flex-col items-center flex-grow">
-                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 p-[2px] mb-4 group-hover:spin-slow">
-                    <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                      <Sparkles className="h-6 w-6 text-cyan-500" />
-                    </div>
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 p-[2px] mb-4 group-hover:spin-slow overflow-hidden">
+                    {dev.image ? (
+                      <img src={dev.image} alt={dev.name} className="w-full h-full rounded-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
+                        <Sparkles className="h-6 w-6 text-cyan-500" />
+                      </div>
+                    )}
                   </div>
-                  
+
                   <h3 className="text-lg font-bold text-foreground mb-1">{dev.name}</h3>
                   <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground font-mono mb-4">
                     <span className="text-cyan-500">{'>'}</span> {dev.role}
@@ -320,8 +338,8 @@ const About = memo(() => {
 
                   {/* --- CONTACT TAG / BUTTON --- */}
                   <div className="mt-auto">
-                    <a 
-                      href={`mailto:${dev.email}`} 
+                    <a
+                      href={`mailto:${dev.email}`}
                       className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/5 border border-cyan-500/20 hover:bg-cyan-500/10 text-cyan-600 hover:text-cyan-500 text-xs font-medium transition-colors"
                     >
                       <Mail className="h-3.5 w-3.5" />
@@ -374,23 +392,23 @@ const About = memo(() => {
       {/* --- TEAM MEMBER DIALOG (MODAL) --- */}
       <AnimatePresence>
         {selectedMember && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={handleCloseModal}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
           >
-            <motion.div 
+            <motion.div
               layoutId={`card-${selectedMember.name}`}
               className="relative w-full max-w-2xl bg-background rounded-3xl shadow-2xl overflow-hidden border border-primary/20"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Decorative Background Header */}
               <div className="h-32 bg-gradient-to-r from-primary/20 to-amber-500/20 w-full absolute top-0 left-0" />
-              
+
               {/* Close Button */}
-              <button 
+              <button
                 onClick={handleCloseModal}
                 className="absolute top-4 right-4 z-10 p-2 rounded-full bg-background/80 hover:bg-background border border-border transition-colors"
               >
@@ -414,17 +432,16 @@ const About = memo(() => {
 
                   {/* Text Content */}
                   <div className="flex-1 text-center sm:text-left">
-                    <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3 ${
-                      selectedMember.role === 'President' 
-                        ? 'bg-amber-500/10 text-amber-600' 
-                        : 'bg-teal-500/10 text-teal-600'
-                    }`}>
+                    <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold mb-3 ${selectedMember.role === 'President'
+                      ? 'bg-amber-500/10 text-amber-600'
+                      : 'bg-teal-500/10 text-teal-600'
+                      }`}>
                       {selectedMember.role === 'President' ? <Crown className="h-3 w-3" /> : <Shield className="h-3 w-3" />}
                       {selectedMember.role}
                     </div>
-                    
+
                     <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">{selectedMember.name}</h3>
-                    
+
                     {/* --- NEW ADDITION: Education Badge in Modal --- */}
                     {selectedMember.education && (
                       <div className="mb-4 flex sm:justify-start justify-center">
